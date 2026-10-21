@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#071a33" />
+  <title>Daily Routine & AI Security Study Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">✦</div>
+        <div><strong>DAYFORGE</strong><small>Routine • Study • Secure</small></div>
+      </div>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-link active" data-view="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-link" data-view="routine"><span>☀</span> Daily routine</button>
+        <button class="nav-link" data-view="study"><span>▤</span> Study tracker</button>
+        <button class="nav-link" data-view="cyber"><span>⌁</span> Cyber roadmap</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="privacy-badge">▣ <span><b>Private by design</b><small>Your progress stays in this browser.</small></span></div>
+        <button class="text-button" id="exportBtn">⇩ Export backup (JSON)</button>
+        <label class="text-button import-label" for="importFile">⇧ Import backup (JSON)</label>
+        <input type="file" id="importFile" accept="application/json,.json" hidden />
+        <button class="text-button danger-text" id="resetBtn">Reset all progress</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="dateLabel">YOUR DAILY COMMAND CENTER</p>
+          <h1 id="pageTitle">Good progress starts with a plan.</h1>
+        </div>
+        <div class="topbar-actions">
+          <label class="date-control">Tracking date <input type="date" id="trackingDate" /></label>
+          <div class="avatar">✦</div>
+        </div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="pill"><span class="pulse"></span> YOUR PERSONAL PROGRESS SYSTEM</span>
+            <h2>Build your day.<br><em>Secure your future.</em></h2>
+            <p>Small consistent actions turn into stronger habits, better grades, and real cybersecurity skills.</p>
+            <button class="primary-btn" data-go="routine">Check today's routine <span>↗</span></button>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+            <div class="shield">⌑<span>✓</span></div>
+            <div class="mini-chip chip-a">AI / ML</div><div class="mini-chip chip-b">FOCUS</div><div class="mini-chip chip-c">BUILD</div>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <div><p class="eyebrow">OVERVIEW</p><h2>Your progress at a glance</h2></div>
+          <span class="muted" id="overviewDate"></span>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Today's routine</span><span class="stat-icon orange">☀</span></div><strong id="routineStat">0%</strong><div class="progress-track"><span id="routineBar"></span></div><small id="routineSub">0 of 0 items completed</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Study tasks</span><span class="stat-icon blue">▤</span></div><strong id="studyStat">0%</strong><div class="progress-track"><span id="studyBar"></span></div><small id="studySub">0 of 0 tasks completed</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Cybersecurity path</span><span class="stat-icon purple">⌁</span></div><strong id="cyberStat">0%</strong><div class="progress-track"><span id="cyberBar"></span></div><small id="cyberSub">0 of 0 roadmap tasks completed</small></article>
+          <article class="stat-card accent-stat"><div class="stat-top"><span>Weekly momentum</span><span class="stat-icon green">↗</span></div><strong id="weekStat">0%</strong><div class="progress-track"><span id="weekBar"></span></div><small id="weekSub">This week's tracked tasks</small></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">THIS WEEK</p><h3>Weekly completion</h3></div><span class="legend"><i></i> Completed</span></div>
+            <div class="weekly-chart" id="weeklyChart" aria-label="Weekly completion chart"></div>
+            <div class="chart-foot"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">STUDY BALANCE</p><h3>Subject progress</h3></div><button class="link-btn" data-go="study">View all ↗</button></div>
+            <div id="subjectOverview" class="subject-overview"></div>
+          </article>
+        </div>
+        <article class="panel focus-panel">
+          <div><p class="eyebrow">NEXT BEST STEP</p><h3>Keep your streak simple</h3><p class="muted">Pick one small task, finish it, and mark it complete. Your dashboard updates automatically.</p></div>
+          <button class="secondary-btn" data-go="study">Open study tracker <span>→</span></button>
+        </article>
+      </section>
+
+      <section class="view" id="view-routine">
+        <div class="section-heading"><div><p class="eyebrow">DAILY HABITS</p><h2>Food, fitness & daily routine</h2><p class="muted">Choose a meal option, add a time if helpful, and update the status as you go.</p></div><div class="completion-chip" id="routineCompletion">0% complete</div></div>
+        <div class="routine-note">💧 <b>Daily reminder:</b> Drink water regularly, don't skip meals, and eat a variety of foods. Treat fried foods, chips and soft drinks as occasional foods, not the foundation of your diet.</div>
+        <div class="routine-list" id="routineList"></div>
+      </section>
+
+      <section class="view" id="view-study">
+        <div class="section-heading study-heading"><div><p class="eyebrow">LEARN CONSISTENTLY</p><h2>Study task tracker</h2><p class="muted">Track H.A., ALM, workbook weeks and Maths tutorials. Changes are saved on this device.</p></div><div class="completion-chip" id="studyCompletion">0% complete</div></div>
+        <div class="filter-row">
+          <label class="search-box">⌕ <input id="taskSearch" type="search" placeholder="Search tasks..." /></label>
+          <select id="subjectFilter" aria-label="Filter by subject"><option value="all">All subjects</option></select>
+          <select id="statusFilter" aria-label="Filter by status"><option value="all">All statuses</option><option value="Not Started">Not started</option><option value="In Progress">In progress</option><option value="Completed">Completed</option></select>
+          <select id="weekFilter" aria-label="Filter by week"><option value="all">All weeks</option></select>
+        </div>
+        <div class="task-summary" id="taskSummary"></div>
+        <div class="table-wrap">
+          <table><thead><tr><th>Subject</th><th>Task</th><th>Planned week</th><th>Status</th><th>Notes</th></tr></thead><tbody id="taskTable"></tbody></table>
+        </div>
+        <p class="muted tiny" id="taskCount"></p>
+      </section>
+
+      <section class="view" id="view-cyber">
+        <div class="cyber-hero">
+          <div><p class="eyebrow">LEARN • BUILD • SECURE • GROW</p><h2>AI Security Expert<br><em>Learning Roadmap</em></h2><p>Move from core foundations to advanced practice and career-ready projects.</p></div>
+          <div class="cyber-emblem">AI<br><small>SECURE</small></div>
+        </div>
+        <div class="roadmap" id="roadmap"></div>
+        <div class="routine-note">⚠️ Practice hacking only in systems you own or have explicit permission to test. For bug bounties, follow the program's written scope and rules.</div>
+      </section>
+      <footer><span>DAYFORGE • Your progress, your pace.</span><span>Saved locally in this browser</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
